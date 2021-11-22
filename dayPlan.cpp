@@ -1,4 +1,5 @@
 #include <iostream>
+#include "attraction.h"
 
 int main(){
 
