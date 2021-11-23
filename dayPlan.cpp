@@ -4,7 +4,7 @@
 
 int main(){
 
-    attraction a("balls", 5, 5);
+    attraction a("space mountain", 5, 5);
     attraction b("peter pan", 60, 5);
     std::cout << a << std::endl;
 
