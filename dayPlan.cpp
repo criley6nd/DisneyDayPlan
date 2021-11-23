@@ -1,9 +1,17 @@
 #include <iostream>
-#include "attraction.h"
+
+#include "parkGraph.h"
 
 int main(){
 
-    std::cout << "Hello World I am  Connor" << std::endl;
+    attraction a("balls", 5, 5);
+    attraction b("peter pan", 60, 5);
+    std::cout << a << std::endl;
 
+    parkGraph park;
+    park.addAttr(a);
+    park.addAttr(b);
+    std::cout << park;
+    
     return 0;
 }
