@@ -23,6 +23,14 @@ int attraction::getRideTime(){
     return rideTime;
 }
 
+int attraction::getx(){
+    return x;
+}
+
+int attraction::gety(){
+    return y;
+}
+
 // operator overload
 std::ostream& operator<<(std::ostream& out, const attraction& attr){
     out << attr.name << ", wait time: " << attr.waitTime << ", ride time: " << attr.rideTime;

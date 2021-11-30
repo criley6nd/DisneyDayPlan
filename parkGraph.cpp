@@ -20,3 +20,9 @@ void parkGraph::findRoute(){
 
     //search algorithm goes here
 }
+
+double findDist(attraction a, attraction b){
+    int dx = a.getx() - b.getx();
+    int dy = a.gety() - b.gety();
+    return sqrt(dx * dx + dy * dy);
+}

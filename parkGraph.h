@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <math.h>
 #include "attraction.h"
 
 
@@ -16,3 +17,5 @@ class parkGraph{
         friend std::ostream& operator<<(std::ostream& out, const parkGraph& park);
         
 };
+
+double findDist(attraction a, attraction b);

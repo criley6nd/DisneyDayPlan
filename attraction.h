@@ -11,6 +11,8 @@ class attraction{
         std::string name;
         int waitTime;
         int rideTime;
+        int x;
+        int y;
     public:
         std::vector<edge> paths;
         attraction();
@@ -19,6 +21,8 @@ class attraction{
         std::string getname();
         int getWaitTime();
         int getRideTime();
+        int getx();
+        int gety();
         friend std::ostream& operator<<(std::ostream& out, const attraction& attr);
 
 };
