@@ -4,7 +4,8 @@
 
 int main(){
 
-    attraction a("space mountain", 5, 5);
+    // initialize attractions for test
+    attraction a("space mountain", 5, 5); 
     attraction b("peter pan", 60, 5);
     std::cout << a << std::endl;
 

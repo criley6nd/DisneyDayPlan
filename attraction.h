@@ -5,7 +5,7 @@
 
 
 //class for an attraction to be a node on the graph
-//includes relevant info
+//includes name of attraction, wait time, and time spent at the attraction
 class attraction{
     private:
         std::string name;
