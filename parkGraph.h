@@ -10,10 +10,13 @@ class parkGraph{
     private:
     // vector to store the different attractions
         std::vector<attraction> attractions;
+        std::vector<int>mustVisit;
+        void sortVisitOrder();
     public:
         parkGraph();
         int addAttr(attraction a);
         void findRoute();
+        void addMustVisit(int attr);
         friend std::ostream& operator<<(std::ostream& out, const parkGraph& park);
         
 };
