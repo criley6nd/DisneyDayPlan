@@ -19,6 +19,12 @@ void parkGraph::addMustVisit(int attr){
     mustVisit.push_back(attr);
 }
 
+void parkGraph::addMustVisit(int attr[], int len){
+    for(int i = 0; i < len; i++){
+        addMustVisit(attr[i]);
+    }
+}
+
 void parkGraph::findRoute(){
     (*this).sortVisitOrder();
     
@@ -46,14 +52,6 @@ void parkGraph::sortVisitOrder(){
         minDist = 1000;
         
     }
-
-
-    for(auto & node : mustVisit){
-        std::cout << node << std::endl;
-    }
-
-
-    
 
 }
 

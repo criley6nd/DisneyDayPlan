@@ -17,6 +17,7 @@ class parkGraph{
         int addAttr(attraction a);
         void findRoute();
         void addMustVisit(int attr);
+        void addMustVisit(int attr[], int len);
         friend std::ostream& operator<<(std::ostream& out, const parkGraph& park);
         
 };

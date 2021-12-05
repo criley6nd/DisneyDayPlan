@@ -13,6 +13,12 @@ int main(){
     attraction e("wendy", 60, 5, 10, 10);
     attraction f("john", 60, 5, 2, 1);
     //std::cout << a << std::endl;
+    edge paths[2];
+    paths[0] = edge(1);
+    paths[1] = edge(2);
+    paths[0].setWeight(findDist(gate,a));
+    paths[1].setWeight(findDist(gate,d));
+    gate.addPaths(paths, 2);
 
     parkGraph park;
     park.addAttr(gate);
@@ -23,13 +29,11 @@ int main(){
     park.addAttr(e);
     park.addAttr(f);
 
+
     //std::cout << park;
-    park.addMustVisit(0);
-    park.addMustVisit(5);
-    park.addMustVisit(1);
-    park.addMustVisit(4);
-    park.addMustVisit(3);
-    park.addMustVisit(2);
+    int len = 6;
+    int rides[] = {0,5,1,4,3,2};
+    park.addMustVisit(rides, len);
     park.findRoute();
     
     return 0;

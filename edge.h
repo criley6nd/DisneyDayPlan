@@ -3,10 +3,12 @@
 class edge{
     private:
         int nextAttr;
-        int weight;
+        float weight;
     public:
         edge();
+        edge(int nextAttr);
+        void setWeight(float newWeight);
         int getNextAttr();
-        int getWeight();
+        float getWeight();
     
 };
