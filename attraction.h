@@ -10,7 +10,6 @@
 class attraction{
     private:
         std::string name;
-        std::vector<edge> paths;
         int waitTime;
         int rideTime;
         int x;
@@ -24,8 +23,11 @@ class attraction{
         int getRideTime();
         int getx();
         int gety();
+
+        std::vector<edge> paths;
+
         std::vector<edge> getEdges();
-        void addPaths(edge newPaths[], int len);
+        void addPaths(std::vector<edge> newEdges);
         friend std::ostream& operator<<(std::ostream& out, const attraction& attr);
 
 };

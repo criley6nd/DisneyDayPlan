@@ -25,26 +25,46 @@ void parkGraph::addMustVisit(int attr[], int len){
     }
 }
 
-void parkGraph::findRoute(){
-    (*this).sortVisitOrder();
+void parkGraph::planDay(){
+    sortVisitOrder();
+    findpath(mustVisit[0],mustVisit[2]);
     
+    
+}
+
+void parkGraph::findpath(int start, int end){
+    int curr = start, next;
+    float minDist;
+    while(curr != end){
+        std::vector<edge> paths = attractions[curr].getEdges();
+        minDist = 1000;
+        for(auto & path : paths){
+            if(pathWeight(path, end) < minDist){
+                next = path.getNextAttr();
+            }
+        }
+        std::cout << next << std::endl;
+        curr = next;
+    }
 }
 
 void parkGraph::sortVisitOrder(){
     // finds closest attraction to the gate to start with
     //gate uses default constructor for coordinates (0,0)
-    
     double minDist = 1000;
     double dist;
     int closest, temp;
+    
     for(int i = 0; i < mustVisit.size() - 1; i++){
+
         for(int j = i + 1; j < mustVisit.size(); j++){
             dist = findDist(attractions[mustVisit[i]], attractions[mustVisit[j]]);
             if(dist < minDist){
                 minDist = dist;
                 closest = j;
             }
-        }
+          
+        }  
 
         temp = mustVisit[i + 1];
         mustVisit[i+1] = mustVisit[closest];
@@ -52,7 +72,10 @@ void parkGraph::sortVisitOrder(){
         minDist = 1000;
         
     }
+}
 
+float parkGraph::pathWeight(edge path, int dest){
+    return path.getWeight() + attractions[path.getNextAttr()].getWaitTime() + findDist(attractions[path.getNextAttr()], attractions[dest]);
 }
 
 
@@ -62,3 +85,4 @@ double findDist(attraction a, attraction b){
     int dy = a.gety() - b.gety();
     return sqrt(dx * dx + dy * dy);
 }
+

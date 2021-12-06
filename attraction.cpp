@@ -34,11 +34,6 @@ std::vector<edge> attraction::getEdges(){
     return paths;
 }
 
-void attraction::addPaths(edge newPaths[], int len){
-    for(int i = 0; i < len; i++){
-        paths.push_back(newPaths[i]);
-    }
-}
 
 // operator overload
 std::ostream& operator<<(std::ostream& out, const attraction& attr){

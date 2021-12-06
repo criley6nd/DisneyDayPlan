@@ -15,9 +15,12 @@ class parkGraph{
     public:
         parkGraph();
         int addAttr(attraction a);
-        void findRoute();
+        void planDay();
+        void findRoute(int start, int end);
         void addMustVisit(int attr);
         void addMustVisit(int attr[], int len);
+        float pathWeight(edge path, int dest);
+        void findpath(int start, int end);
         friend std::ostream& operator<<(std::ostream& out, const parkGraph& park);
         
 };
