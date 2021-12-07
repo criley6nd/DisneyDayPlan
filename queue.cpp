@@ -20,10 +20,36 @@ qNode pQueue::getHead(){
     return *head;
 }
 void pQueue::insert(edge newPath, float weight){
-    qNode newNode(newPath, weight);
+    qNode *newNode = new qNode(newPath, weight);
+    if(head == NULL){
+        head = newNode;
+        return;
+    }
+    if(weight < head->getWeight()){
+        newNode->nextNode = head;
+        head = newNode;
+        return;
+    }
+    qNode *next = head->nextNode;
     qNode *curr = head;
-    while(weight > curr->nextNode->getWeight()){
+    while(weight > next->getWeight()){
+        
+        curr = next;
+        next = next->nextNode;
+        if(next == NULL){break;}
 
     }
+    
+    newNode->nextNode = curr->nextNode;
+    curr->nextNode = newNode;
+    
+    
 }
-qNode pop();
+
+qNode pQueue::pop(){
+    qNode retNode = *head;
+    qNode *temp = head;
+    head = head->nextNode;
+    free(temp);
+    return retNode;
+}
