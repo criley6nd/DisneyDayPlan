@@ -1,4 +1,5 @@
 #include "parkGraph.h"
+#include "queue.h"
 
 parkGraph::parkGraph() : attractions() {}
 
@@ -33,6 +34,30 @@ void parkGraph::planDay(){
 }
 
 void parkGraph::findpath(int start, int end){
+    int curr = start;
+    int parents[attractions.size()];
+    float weights[attractions.size()];
+    for(int i = 0; i < attractions.size(); i++){
+        weights[i] = (float)1000;
+    }
+    pQueue pq;
+    std::vector<edge> paths;
+    while(curr != end){
+        paths = attractions[curr].getEdges();
+        if(paths.size() != 0){
+            for(auto & path : paths){
+                std::cout << path.getNextAttr() << std::endl;
+                pq.insert(path, pathWeight(path, end));    
+                //std::cout << path.getNextAttr() << std::endl;
+            }
+        }
+        
+        curr = pq.pop().getPath().getNextAttr();
+        
+        
+    }
+
+    /*
     int curr = start, next;
     float minDist;
     while(curr != end){
@@ -46,6 +71,7 @@ void parkGraph::findpath(int start, int end){
         std::cout << next << std::endl;
         curr = next;
     }
+    */
 }
 
 void parkGraph::sortVisitOrder(){

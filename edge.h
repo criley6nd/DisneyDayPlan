@@ -1,4 +1,5 @@
-
+#ifndef EDGE_H
+#define EDGE_H
 
 class edge{
     private:
@@ -12,3 +13,5 @@ class edge{
         float getWeight();
     
 };
+
+#endif

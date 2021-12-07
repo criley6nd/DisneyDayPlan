@@ -30,10 +30,20 @@ void pQueue::insert(edge newPath, float weight){
         head = newNode;
         return;
     }
+    if(head->nextNode == NULL){
+        if(weight > head->getWeight()){
+            head->nextNode = newNode;
+            newNode->nextNode = NULL;
+        }
+        else{
+            newNode->nextNode = head;
+            head = newNode;
+        }
+        return;
+    }
     qNode *next = head->nextNode;
     qNode *curr = head;
     while(weight > next->getWeight()){
-        
         curr = next;
         next = next->nextNode;
         if(next == NULL){break;}
