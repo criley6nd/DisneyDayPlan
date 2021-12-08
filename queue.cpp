@@ -16,8 +16,8 @@ float qNode::getWeight(){
 
 pQueue::pQueue() : head(NULL) {}
 
-qNode pQueue::getHead(){
-    return *head;
+qNode *pQueue::getHead(){
+    return head;
 }
 void pQueue::insert(edge newPath, float weight){
     qNode *newNode = new qNode(newPath, weight);

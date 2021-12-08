@@ -28,50 +28,69 @@ void parkGraph::addMustVisit(int attr[], int len){
 
 void parkGraph::planDay(){
     sortVisitOrder();
-    findpath(mustVisit[0],mustVisit[2]);
-    
+    for(std::vector<int>::iterator it = mustVisit.begin(); it != mustVisit.end() - 1; it++){
+        findpath(*it,*(it + 1));
+    }
+    //findpath(mustVisit[1],mustVisit[2]);
     
 }
 
 void parkGraph::findpath(int start, int end){
-    int curr = start;
+    edge curr;
+    float time = 0;
     int parents[attractions.size()];
     float weights[attractions.size()];
+    float times[attractions.size()];
     for(int i = 0; i < attractions.size(); i++){
-        weights[i] = (float)1000;
+        weights[i] = (float)100000;
     }
+    parents[start] = -1;
+    weights[start] = 0;
     pQueue pq;
+
+
     std::vector<edge> paths;
-    while(curr != end){
-        paths = attractions[curr].getEdges();
+    paths = attractions[start].getEdges();
         if(paths.size() != 0){
             for(auto & path : paths){
-                std::cout << path.getNextAttr() << std::endl;
-                pq.insert(path, pathWeight(path, end));    
-                //std::cout << path.getNextAttr() << std::endl;
+                pq.insert(path, pathWeight(path, end));        
+            }
+        }
+
+    
+
+    while(pq.getHead() != NULL){
+        curr = pq.pop().getPath();
+        //std::cout << pathWeight(curr, end) << " " << curr.getCurrAttr() << std::endl;
+        if(pathWeight(curr, end) + weights[curr.getCurrAttr()] < weights[curr.getNextAttr()]){
+            weights[curr.getNextAttr()] = pathWeight(curr,end) + weights[curr.getCurrAttr()];
+            parents[curr.getNextAttr()] = curr.getCurrAttr();
+            paths = attractions[curr.getNextAttr()].getEdges();
+
+            if(paths.size() != 0){
+                for(auto & path : paths){
+                    pq.insert(path, pathWeight(path, end));    
+                
+                }
             }
         }
         
-        curr = pq.pop().getPath().getNextAttr();
+        //std::cout << curr.getNextAttr() << std::endl;
         
         
     }
 
-    /*
-    int curr = start, next;
-    float minDist;
-    while(curr != end){
-        std::vector<edge> paths = attractions[curr].getEdges();
-        minDist = 1000;
-        for(auto & path : paths){
-            if(pathWeight(path, end) < minDist){
-                next = path.getNextAttr();
-            }
-        }
-        std::cout << next << std::endl;
-        curr = next;
+    for(int i = 0; i < 6; i++){
+        //std::cout << parents[i] << " " << weights[i] << std::endl;
     }
-    */
+
+    int i = end;
+    while(i != -1){
+        std::cout << i << std::endl;
+        i = parents[i];
+    }
+
+
 }
 
 void parkGraph::sortVisitOrder(){

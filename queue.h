@@ -20,7 +20,7 @@ class pQueue{
         qNode *head;
     public:
         pQueue();
-        qNode getHead();
+        qNode *getHead();
         void insert(edge newNode, float weight);
         qNode pop();
 
