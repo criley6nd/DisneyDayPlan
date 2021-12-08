@@ -2,6 +2,7 @@
 
 qNode::qNode(edge pathin, float weight) : path(pathin), nextNode(NULL), weight(weight) {}
 
+
 edge qNode::getPath(){
     return path;
 }
@@ -15,6 +16,15 @@ float qNode::getWeight(){
 }
 
 pQueue::pQueue() : head(NULL) {}
+
+pQueue::~pQueue(){
+    qNode *curr = head;
+    while(curr != NULL){
+        head = curr->nextNode;
+        free(curr);
+        curr = head;
+    }
+}
 
 qNode *pQueue::getHead(){
     return head;
@@ -63,3 +73,5 @@ qNode pQueue::pop(){
     free(temp);
     return retNode;
 }
+
+

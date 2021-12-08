@@ -93,7 +93,7 @@ void parkGraph::findpath(int start, int end){
 
     printStack.pop_back();
     while(printStack.size() > 0){
-        std::cout << attractions[printStack.back()] << std::endl;
+        std::cout << printStack.back() << ": " << attractions[printStack.back()] << std::endl;
         printStack.pop_back();
     }
 

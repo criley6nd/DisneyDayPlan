@@ -7,7 +7,7 @@ int main(){
     // initialize attractions for test
     attraction gate("Main gate", 0, 0, 0, 0);
     attraction a("space mountain", 5, 5, 1, 1); 
-    attraction b("peter pan", 600, 5, 2, 2);
+    attraction b("peter pan", 60, 5, 2, 2);
     attraction c("peter", 6, 5, 2, 3);
     attraction d("pan", 600, 5, 3, 3);
     attraction e("wendy", 60, 5, 10, 10);
@@ -52,8 +52,8 @@ int main(){
 
 
     //std::cout << park;
-    int len = 3;
-    int rides[] = {0,5,2};
+    int len = 2;
+    int rides[] = {0,5};
     park.addMustVisit(rides, len);
     park.planDay();
     
