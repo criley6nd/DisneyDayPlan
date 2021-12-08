@@ -28,10 +28,10 @@ void parkGraph::addMustVisit(int attr[], int len){
 
 void parkGraph::planDay(){
     sortVisitOrder();
+    std::cout << attractions[0] << std::endl;
     for(std::vector<int>::iterator it = mustVisit.begin(); it != mustVisit.end() - 1; it++){
         findpath(*it,*(it + 1));
     }
-    //findpath(mustVisit[1],mustVisit[2]);
     
 }
 
@@ -61,7 +61,7 @@ void parkGraph::findpath(int start, int end){
 
     while(pq.getHead() != NULL){
         curr = pq.pop().getPath();
-        //std::cout << pathWeight(curr, end) << " " << curr.getCurrAttr() << std::endl;
+        
         if(pathWeight(curr, end) + weights[curr.getCurrAttr()] < weights[curr.getNextAttr()]){
             weights[curr.getNextAttr()] = pathWeight(curr,end) + weights[curr.getCurrAttr()];
             parents[curr.getNextAttr()] = curr.getCurrAttr();
@@ -75,19 +75,26 @@ void parkGraph::findpath(int start, int end){
             }
         }
         
-        //std::cout << curr.getNextAttr() << std::endl;
+        
         
         
     }
 
-    for(int i = 0; i < 6; i++){
-        //std::cout << parents[i] << " " << weights[i] << std::endl;
-    }
-
+    std::vector<int> printStack;
     int i = end;
+    printStack.push_back(i);
+    i = parents[i];
     while(i != -1){
-        std::cout << i << std::endl;
+        if(printStack.back() != i){
+            printStack.push_back(i);
+        }
         i = parents[i];
+    }
+
+    printStack.pop_back();
+    while(printStack.size() > 0){
+        std::cout << attractions[printStack.back()] << std::endl;
+        printStack.pop_back();
     }
 
 
