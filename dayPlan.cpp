@@ -5,13 +5,13 @@
 int main(){
 
     // initialize attractions for test
-    attraction gate("Main gate", 0, 0, 0, 0);
-    attraction a("space mountain", 5, 5, 1, 1); 
-    attraction b("peter pan", 60, 5, 2, 2);
-    attraction c("peter", 6, 5, 2, 3);
-    attraction d("pan", 600, 5, 3, 3);
-    attraction e("wendy", 60, 5, 10, 10);
-    attraction f("john", 60, 5, 2, 1);
+    attraction gate("Main gate", 0, 0, 0);
+    attraction a("space mountain", 5, 1, 1); 
+    attraction b("peter pan", 60, 2, 2);
+    attraction c("peter", 6,2, 3);
+    attraction d("pan", 600, 3, 3);
+    attraction e("wendy", 60, 10, 10);
+    attraction f("john", 60, 2, 1);
     
     std::vector<edge> tempPaths;
     tempPaths.push_back(edge(0,1));
@@ -22,10 +22,16 @@ int main(){
 
     tempPaths.clear();
     tempPaths.push_back(edge(2,3));
-    tempPaths.push_back(edge(2,5));
+    //tempPaths.push_back(edge(2,5));
     tempPaths[0].setWeight(findDist(b, c));
-    tempPaths[1].setWeight(findDist(b, e));
+    //tempPaths[1].setWeight(findDist(b, e));
     b.paths = tempPaths;
+
+    tempPaths.push_back(edge(3,1));
+    tempPaths.push_back(edge(3,4));
+    tempPaths[0].setWeight(findDist(c, a));
+    tempPaths[0].setWeight(findDist(c, d));
+    c.paths = tempPaths;
 
     tempPaths.clear();
     tempPaths.push_back(edge(1,2));
@@ -52,8 +58,8 @@ int main(){
 
 
     //std::cout << park;
-    int len = 2;
-    int rides[] = {0,5};
+    int len = 5;
+    int rides[] = {0,2,3,1,4};
     park.addMustVisit(rides, len);
     park.planDay();
     

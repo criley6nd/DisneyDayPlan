@@ -11,16 +11,14 @@ class attraction{
     private:
         std::string name;
         int waitTime;
-        int rideTime;
         int x;
         int y;
     public:
         attraction();
-        attraction(std::string namein, int waitTimein, int rideTimein, std::vector<edge>& pathsin, int x, int y);
-        attraction(std::string namein, int waitTimein, int rideTimein, int x, int y);
+        attraction(std::string namein, int waitTimein, std::vector<edge>& pathsin, int x, int y);
+        attraction(std::string namein, int waitTimein, int x, int y);
         std::string getname();
         int getWaitTime();
-        int getRideTime();
         int getx();
         int gety();
 

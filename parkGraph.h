@@ -20,7 +20,8 @@ class parkGraph{
         void addMustVisit(int attr);
         void addMustVisit(int attr[], int len);
         float pathWeight(edge path, int dest);
-        void findpath(int start, int end);
+        float findpath(int start, int end, float startTime);
+        float pathTime(edge path);
         friend std::ostream& operator<<(std::ostream& out, const parkGraph& park);
         
 };

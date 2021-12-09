@@ -1,13 +1,13 @@
 #include "attraction.h"
 
 //constructors 
-attraction::attraction () : name(), waitTime(0), rideTime(0), paths(), x(0), y(0) {}
+attraction::attraction () : name(), waitTime(0), paths(), x(0), y(0) {}
 
-attraction::attraction(std::string namein, int waitTimein, int rideTimein, std::vector<edge>& pathsin, int x, int y) :
-    name(namein), waitTime(waitTimein), rideTime(rideTimein), paths(pathsin), x(x), y(y) {}
+attraction::attraction(std::string namein, int waitTimein, std::vector<edge>& pathsin, int x, int y) :
+    name(namein), waitTime(waitTimein), paths(pathsin), x(x), y(y) {}
 
-attraction::attraction(std::string namein, int waitTimein, int rideTimein, int x, int y) :
-    name(namein), waitTime(waitTimein), rideTime(rideTimein), paths(), x(x), y(y) {}
+attraction::attraction(std::string namein, int waitTimein, int x, int y) :
+    name(namein), waitTime(waitTimein), paths(), x(x), y(y) {}
 
 // get private values
 std::string attraction::getname(){
@@ -16,10 +16,6 @@ std::string attraction::getname(){
 
 int attraction::getWaitTime(){
     return waitTime;
-}
-
-int attraction::getRideTime(){
-    return rideTime;
 }
 
 int attraction::getx(){
@@ -37,6 +33,6 @@ std::vector<edge> attraction::getEdges(){
 
 // operator overload
 std::ostream& operator<<(std::ostream& out, const attraction& attr){
-    out << attr.name << ", wait time: " << attr.waitTime << ", ride time: " << attr.rideTime;
+    out << attr.name << ", Time at attraction: " << attr.waitTime << " min";
     return out;
 }
