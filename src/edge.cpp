@@ -1,9 +1,11 @@
 #include "../include/edge.h"
 
-edge::edge() : nextAttr(0), weight(0) {}
+//constructors
+edge::edge() : nextAttr(0), currAttr(0), weight(0) {}
 
-edge::edge(int currAttr, int nextAttr) : nextAttr(nextAttr), weight(0), currAttr(currAttr) {}
+edge::edge(int currAttrin, int nextAttrin) : nextAttr(nextAttrin), currAttr(currAttrin), weight(0) {}
 
+//get and set functions
 void edge::setWeight(float newWeight){
     weight = newWeight;
 }

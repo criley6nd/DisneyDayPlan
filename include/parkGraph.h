@@ -12,6 +12,7 @@ class parkGraph{
     private:
     // vector to store the different attractions
         std::vector<attraction> attractions;
+        //vector to store the attractions that must be visited during the day
         std::vector<int>mustVisit;
         std::string name;
         void sortVisitOrder();
@@ -28,6 +29,7 @@ class parkGraph{
         float pathTime(edge path);
         void readIn(char *fn);
         friend std::ostream& operator<<(std::ostream& out, const parkGraph& park);
+        
         
 };
 

@@ -226,6 +226,8 @@ void parkGraph::sortVisitOrder(){
     double dist;
     int closest = 0, temp;
     
+    //loops through finding the next closest attraction from the previous one
+    //until all attractions have been sorted
     for(unsigned int i = 0; i < (mustVisit.size() - 1); i++){
 
         for(unsigned int j = i + 1; j <  mustVisit.size(); j++){
@@ -245,10 +247,13 @@ void parkGraph::sortVisitOrder(){
     }
 }
 
+
+//calculates weight of a path for priorety queue
 float parkGraph::pathWeight(edge path, int dest){
     return path.getWeight() + (float)attractions[path.getNextAttr()].getWaitTime() + findDist(attractions[path.getNextAttr()], attractions[dest]);
 }
 
+//calculates time one will spend getting to and being at the attraction
 float parkGraph::pathTime(edge path){
     return (path.getWeight() + (float)attractions[path.getNextAttr()].getWaitTime());
 }

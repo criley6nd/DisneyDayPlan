@@ -1,7 +1,8 @@
 #include "../include/queue.h"
 #include <stdlib.h>
 
-qNode::qNode(edge pathin, float weight) : path(pathin), nextNode(NULL), weight(weight) {}
+//qNode constructors and get/set functions
+qNode::qNode(edge pathin, float weightin) : path(pathin), weight(weightin),  nextNode(NULL) {}
 
 
 edge qNode::getPath(){
@@ -16,7 +17,10 @@ float qNode::getWeight(){
     return weight;
 }
 
+//pQueue constructors and destructor
 pQueue::pQueue() : head(NULL) {}
+
+pQueue::pQueue(const pQueue& assign) : head(assign.head) {}
 
 pQueue::~pQueue(){
     qNode *curr = head;
@@ -27,10 +31,20 @@ pQueue::~pQueue(){
     }
 }
 
+pQueue& pQueue::operator=(const pQueue& assign){
+    if(this == &assign){
+        this->head = assign.head;
+    }
+    return *this;
+
+}
+
 qNode *pQueue::getHead(){
     return head;
 }
 
+//inserts a node into the queue in sorted order by weight from 
+//least to greatest
 void pQueue::insert(edge newPath, float weight){
     qNode *newNode = new qNode(newPath, weight);
     if(head == NULL){
@@ -68,6 +82,7 @@ void pQueue::insert(edge newPath, float weight){
     
 }
 
+//removes the head node from the queue and returns it
 qNode pQueue::pop(){
     qNode retNode = *head;
     qNode *temp = head;

@@ -1,13 +1,10 @@
 #include "../include/attraction.h"
 
 //constructors 
-attraction::attraction () : name(), waitTime(0), paths(), x(0), y(0) {}
+attraction::attraction () : name(), waitTime(0), x(0), y(0), paths() {}
 
-attraction::attraction(std::string namein, int waitTimein, std::vector<edge>& pathsin, int x, int y) :
-    name(namein), waitTime(waitTimein), paths(pathsin), x(x), y(y) {}
-
-attraction::attraction(std::string namein, int waitTimein, int x, int y) :
-    name(namein), waitTime(waitTimein), paths(), x(x), y(y) {}
+attraction::attraction(std::string namein, int waitTimein, int xin, int yin) :
+    name(namein), waitTime(waitTimein),  x(xin), y(yin), paths()  {}
 
 // get private values
 std::string attraction::getname(){

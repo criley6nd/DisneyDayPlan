@@ -1,6 +1,10 @@
 #ifndef EDGE_H
 #define EDGE_H
 
+//class to store an edge on the park graph 
+//contains currAttr to represent attraction it is leaving
+//nextAttr represents where it is going and weight is the 
+//path weight
 class edge{
     private:
         int nextAttr;
@@ -8,7 +12,7 @@ class edge{
         float weight;
     public:
         edge();
-        edge(int currAttr, int nextAttr);
+        edge(int currAttrin, int nextAttrin);
         void setWeight(float newWeight);
         int getNextAttr();
         float getWeight();
