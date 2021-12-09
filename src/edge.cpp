@@ -1,4 +1,4 @@
-#include "edge.h"
+#include "../include/edge.h"
 
 edge::edge() : nextAttr(0), weight(0) {}
 

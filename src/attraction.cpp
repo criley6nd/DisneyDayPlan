@@ -1,4 +1,4 @@
-#include "attraction.h"
+#include "../include/attraction.h"
 
 //constructors 
 attraction::attraction () : name(), waitTime(0), paths(), x(0), y(0) {}

@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "parkGraph.h"
+#include "../include/parkGraph.h"
 
 int main(int argc, char *argv[]){
 

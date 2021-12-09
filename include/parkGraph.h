@@ -31,7 +31,7 @@ class parkGraph{
         
 };
 
-double findDist(attraction a, attraction b);
+float findDist(attraction a, attraction b);
 int split(char* buf, char** splits, char delim, int max, int len);
 
 #endif

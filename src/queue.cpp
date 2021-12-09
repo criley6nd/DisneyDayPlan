@@ -1,4 +1,5 @@
-#include "queue.h"
+#include "../include/queue.h"
+#include <stdlib.h>
 
 qNode::qNode(edge pathin, float weight) : path(pathin), nextNode(NULL), weight(weight) {}
 
@@ -29,6 +30,7 @@ pQueue::~pQueue(){
 qNode *pQueue::getHead(){
     return head;
 }
+
 void pQueue::insert(edge newPath, float weight){
     qNode *newNode = new qNode(newPath, weight);
     if(head == NULL){

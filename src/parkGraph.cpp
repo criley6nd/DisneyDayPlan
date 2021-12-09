@@ -1,7 +1,8 @@
-#include "parkGraph.h"
-#include "queue.h"
+#include "../include/parkGraph.h"
+#include "../include/queue.h"
+#include <string.h>
 
-parkGraph::parkGraph() : attractions() {}
+parkGraph::parkGraph() : attractions(), mustVisit(), name() {}
 
 void parkGraph::readIn(char *fn){
     //reads in a park graph from a given file name
@@ -9,7 +10,7 @@ void parkGraph::readIn(char *fn){
     //name, time, x, y, numedges, edges...
 
     //creates arrays to receive lines and then to hold split lines
-    long unsigned int maxChars = 200;
+    int maxChars = 200;
     char** attractionstr = (char**) malloc(100*sizeof(char*));
     char*** bigarr = (char***) malloc(100 * sizeof(char**));
     for(int i = 0; i < 100; i++){
@@ -109,11 +110,11 @@ int split(char* buf, char** splits, char delim, int max, int len){
 //adds attraction to parkGraph and returns index
 int parkGraph::addAttr(attraction a){
     attractions.push_back(a);
-    return attractions.size();
+    return (int)attractions.size();
 }
 
 std::ostream& operator<<(std::ostream& out, const parkGraph& park){
-    for(int i = 0; i < park.attractions.size(); i++){
+    for(unsigned int i = 0; i < park.attractions.size(); i++){
         out << i << ": " << park.attractions[i] << "\n";
     }
     return out;
@@ -150,7 +151,7 @@ float parkGraph::findpath(int start, int end, float startTime){
     //times stores the time the user will visit each attraction
     float times[attractions.size()];
     //default all weights to a very large number
-    for(int i = 0; i < attractions.size(); i++){
+    for(unsigned int i = 0; i < attractions.size(); i++){
         weights[i] = (float)100000;
     }
 
@@ -205,7 +206,7 @@ float parkGraph::findpath(int start, int end, float startTime){
 
     printStack.pop_back();
     while(printStack.size() > 0){
-        float waitTime = times[printStack.back()] - attractions[printStack.back()].getWaitTime();
+        float waitTime = times[printStack.back()] - (float)attractions[printStack.back()].getWaitTime();
         if((int)waitTime % 60 >= 10){
             std::cout << (((int)waitTime) / 60) << ":" << (((int)waitTime) % 60) << " " << attractions[printStack.back()] << std::endl;
         }
@@ -223,11 +224,11 @@ void parkGraph::sortVisitOrder(){
     //gate uses default constructor for coordinates (0,0)
     double minDist = 1000;
     double dist;
-    int closest, temp;
+    int closest = 0, temp;
     
-    for(int i = 0; i < mustVisit.size() - 1; i++){
+    for(unsigned int i = 0; i < (mustVisit.size() - 1); i++){
 
-        for(int j = i + 1; j < mustVisit.size(); j++){
+        for(unsigned int j = i + 1; j <  mustVisit.size(); j++){
             dist = findDist(attractions[mustVisit[i]], attractions[mustVisit[j]]);
             if(dist < minDist){
                 minDist = dist;
@@ -245,18 +246,18 @@ void parkGraph::sortVisitOrder(){
 }
 
 float parkGraph::pathWeight(edge path, int dest){
-    return path.getWeight() + attractions[path.getNextAttr()].getWaitTime() + findDist(attractions[path.getNextAttr()], attractions[dest]);
+    return path.getWeight() + (float)attractions[path.getNextAttr()].getWaitTime() + findDist(attractions[path.getNextAttr()], attractions[dest]);
 }
 
 float parkGraph::pathTime(edge path){
-    return path.getWeight() + attractions[path.getNextAttr()].getWaitTime();
+    return (path.getWeight() + (float)attractions[path.getNextAttr()].getWaitTime());
 }
 
 
 //finds the euclidian distance between two nodes on the graph
-double findDist(attraction a, attraction b){
+float findDist(attraction a, attraction b){
     int dx = a.getx() - b.getx();
     int dy = a.gety() - b.gety();
-    return sqrt(dx * dx + dy * dy);
+    return (float)sqrt(dx * dx + dy * dy);
 }
 
