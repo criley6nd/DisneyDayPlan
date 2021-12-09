@@ -2,7 +2,8 @@
 #include <vector>
 #include <string>
 #include "edge.h"
-
+#ifndef ATTRACTION_H
+#define ATTRACTION_H
 
 //class for an attraction to be a node on the graph
 //includes name of attraction, wait time, and time spent at the attraction
@@ -29,3 +30,5 @@ class attraction{
         friend std::ostream& operator<<(std::ostream& out, const attraction& attr);
 
 };
+
+#endif

@@ -1,5 +1,7 @@
 #include <iostream>
 #include "edge.h"
+#ifndef QNODE_H
+#define QNODE_H
 
 class qNode{
     private:
@@ -14,6 +16,10 @@ class qNode{
 
 
 };
+#endif
+
+#ifndef PQUEUE_H
+#define PQUEUE_H
 
 class pQueue{
     private:
@@ -26,3 +32,5 @@ class pQueue{
         qNode pop();
 
 };
+
+#endif

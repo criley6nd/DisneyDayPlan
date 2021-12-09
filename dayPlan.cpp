@@ -2,8 +2,10 @@
 
 #include "parkGraph.h"
 
-int main(){
+int main(int argc, char *argv[]){
 
+    parkGraph park;
+    /*
     // initialize attractions for test
     attraction gate("Main gate", 0, 0, 0);
     attraction a("space mountain", 5, 1, 1); 
@@ -55,13 +57,27 @@ int main(){
     park.addAttr(d);
     park.addAttr(e);
     park.addAttr(f);
+    */
 
+    //char *fn = "attractions.txt";
+    park.readIn(argv[1]);
+    std::cout << "\n" << park.getName() << std::endl;
 
-    //std::cout << park;
-    int len = 5;
-    int rides[] = {0,2,3,1,4};
+    std::cout << park;
+    std::cout << "What attractions are your must visits? (enter a 0 when done or a max of 25)" << std::endl;
+    int inp, len = 1, rides[25];
+    std::cin >> inp;
+    rides[0] = 0;
+    while(inp != -1 && len < 25){
+        rides[len] = inp;
+        len++;
+        std::cin >> inp;
+        
+    }
+   
     park.addMustVisit(rides, len);
     park.planDay();
     
+
     return 0;
 }

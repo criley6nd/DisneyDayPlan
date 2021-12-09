@@ -3,9 +3,107 @@
 
 parkGraph::parkGraph() : attractions() {}
 
-void readIn(char *fn){
-    //name, time, x, y, numedges, edges
+void parkGraph::readIn(char *fn){
+    //reads in a park graph from a given file name
+    //file must be written in the following format:
+    //name, time, x, y, numedges, edges...
+
+    //creates arrays to receive lines and then to hold split lines
+    long unsigned int maxChars = 200;
+    char** attractionstr = (char**) malloc(100*sizeof(char*));
+    char*** bigarr = (char***) malloc(100 * sizeof(char**));
+    for(int i = 0; i < 100; i++){
+        bigarr[i] = (char**) malloc(15 * sizeof(char*));
+        for(int j = 0; j < 15; j++){
+            bigarr[i][j] = (char*) malloc(40 * sizeof(char));
+        }
+    }
     
+    //reads in file by lines
+    FILE* afile;
+    char *namebuff = (char*)malloc(20*sizeof(char));
+    afile = fopen(fn, "r");
+    fgets(namebuff, maxChars, afile);
+    name = namebuff;
+    free(namebuff);
+    int count = 0;
+    if(afile != NULL){
+        while(1){
+            if(feof(afile)) break;
+            attractionstr[count] = (char*) malloc(maxChars*sizeof(char));
+            fgets(attractionstr[count], maxChars, afile);
+            char *c = attractionstr[count];
+            while(*c != '\n' && *c != '\0'){
+                c++;
+            }
+            *c = '\0';
+            count++;
+        }
+    }
+
+    //splits each line by commas and puts them into bigarr then into an attraction
+    //the attraction is then added to the park
+    for(int i = 0; i < count; i++){
+        split(attractionstr[i], bigarr[i], ',', 15, 40);
+        attraction newAttr(bigarr[i][0], atoi(bigarr[i][1]), atoi(bigarr[i][2]) /4, atoi(bigarr[i][3]) / 4);
+        addAttr(newAttr);
+    }
+
+    //adds edges to the attractions in the park and calulates the distances
+    for(int i = 0; i < count; i++){
+        std::vector<edge> bigEdges; 
+        for(int j = 1; j <= atoi(bigarr[i][4]); j++){
+            edge temp(i,atoi(bigarr[i][4 + j]));
+            temp.setWeight(findDist(attractions[i], attractions[atoi(bigarr[i][4 + j])]));
+            bigEdges.push_back(temp);
+        }
+        attractions[i].paths = bigEdges;
+    }
+
+
+    //frees memory
+    for(int i = 0; i < 100; i++){
+        for(int j = 0; j < 15; j++){
+            free(bigarr[i][j]);
+        }
+        free(bigarr[i]);
+    }    
+    free(bigarr);
+
+    for(int i = 0; i < count; ++i){
+        free(attractionstr[i]);
+    }
+    free(attractionstr);
+}
+
+std::string parkGraph::getName(){
+    return name;
+}
+
+int split(char* buf, char** splits, char delim, int max, int len){
+    //splits a char* into a char** by a given delimeter
+    char* r = buf;
+    char* dubbuff = (char*)malloc(len * sizeof(char));
+    int elements = 0;
+    int buffspot = 0;
+    while(*r != '\0' && elements <= max){
+        if(*r != delim){
+            dubbuff[buffspot] = *r;
+            r++;
+            buffspot++;
+        }
+        else{
+            r++;
+            dubbuff[buffspot] = '\0';
+            memcpy(splits[elements], dubbuff, len * sizeof(char));
+            
+            buffspot = 0;
+            elements++;
+        }
+    }
+    free(dubbuff);
+
+    return elements;
 }
 
 //adds attraction to parkGraph and returns index
@@ -85,7 +183,6 @@ float parkGraph::findpath(int start, int end, float startTime){
             if(paths.size() != 0){
                 for(auto & path : paths){
                     pq.insert(path, pathWeight(path, end));    
-                
                 }
             }
         }
@@ -109,7 +206,7 @@ float parkGraph::findpath(int start, int end, float startTime){
     printStack.pop_back();
     while(printStack.size() > 0){
         float waitTime = times[printStack.back()] - attractions[printStack.back()].getWaitTime();
-        if((int)waitTime % 60 > 10){
+        if((int)waitTime % 60 >= 10){
             std::cout << (((int)waitTime) / 60) << ":" << (((int)waitTime) % 60) << " " << attractions[printStack.back()] << std::endl;
         }
         else{
